@@ -1,9 +1,9 @@
 import React, { createContext, useContext, useState } from "react";
 
-const Basket = createContext({
+export const Basket = createContext({
   basket: [],
   addToBasket: (product) => {},
-  removeToBasket: (productId) => {}
+  removeFromBasket: (productId) => {}
 });
 
 const StateProvider = (props) => {
@@ -11,16 +11,20 @@ const StateProvider = (props) => {
   const addToBasket = (product) => {
     setBasket(basket.concat(product));
   };
-  const removeToBasket = (productId) => {
-    setBasket(basket.map((product) => product.id === productId));
+  const removeFromBasket = (productId) => {
+    let index = basket.findIndex((prduct) => prduct.id === productId);
+    console.log(index);
+    let newBasket = [...basket];
+    console.log(basket.reduce((a, b) => a + b.price, 0));
+    console.log(newBasket.splice(index, 1));
+    setBasket(newBasket.splice(index, 1));
   };
   return (
     <Basket.Provider
       value={{
         basket: basket,
         addToBasket: addToBasket,
-        removeToBasket,
-        removeToBasket
+        removeFromBasket: removeFromBasket
       }}
     >
       {props.children}
