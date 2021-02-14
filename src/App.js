@@ -4,6 +4,7 @@ import Header from "./Header";
 import Home from "./Home";
 import StateProvider from "./StateProvider";
 import Checkout from "./Checkout";
+import Login from "./Login";
 export default function App() {
   return (
     <StateProvider>
@@ -14,7 +15,7 @@ export default function App() {
         </Route>
         <Route path="/login">
           <Header />
-          <h1>login</h1>
+          <Login />
         </Route>
         <Route path="/">
           <Header />

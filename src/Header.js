@@ -2,8 +2,8 @@ import "./Header.css";
 import React, { useContext } from "react";
 
 import { Link } from "react-router-dom";
-import SearchIcon from "@material-ui/icons/Search";
-import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
+import { SearchIcon } from "@material-ui/icons";
+import { ShoppingBasketIcon } from "@material-ui/icons";
 import { Basket } from "./StateProvider";
 const Header = () => {
   const { basket, addToBasket } = useContext(Basket);

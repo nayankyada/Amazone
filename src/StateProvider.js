@@ -9,15 +9,19 @@ export const Basket = createContext({
 const StateProvider = (props) => {
   const [basket, setBasket] = useState([]);
   const addToBasket = (product) => {
+    // const idx = basket.findIndex((items) => items.id === product.id);
+    // if (idx >= 0) {
+    //   alert(`Product with ProductId - ${product.id} already in basket`);
+    // } else {
     setBasket(basket.concat(product));
+    // }
   };
   const removeFromBasket = (productId) => {
-    let index = basket.findIndex((prduct) => prduct.id === productId);
-    console.log(index);
-    let newBasket = [...basket];
-    console.log(basket.reduce((a, b) => a + b.price, 0));
-    console.log(newBasket.splice(index, 1));
-    setBasket(newBasket.splice(index, 1));
+    const newBasket = [...basket];
+    const index = basket.findIndex((items) => items.id === productId);
+    newBasket.splice(index, 1);
+    console.log(newBasket);
+    setBasket(newBasket);
   };
   return (
     <Basket.Provider
