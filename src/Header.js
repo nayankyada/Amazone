@@ -1,15 +1,24 @@
 import "./Header.css";
 import React, { useContext } from "react";
-
 import { Link } from "react-router-dom";
-import { SearchIcon } from "@material-ui/icons";
-import { ShoppingBasketIcon } from "@material-ui/icons";
+import SearchIcon from "@material-ui/icons/Search";
+import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
 import { Basket } from "./StateProvider";
-const Header = () => {
-  const { basket, addToBasket } = useContext(Basket);
+import { auth } from "./Firebase";
 
+const Header = () => {
+  const { basket, user, login } = useContext(Basket);
+  const handleAuthenticaton = () => {
+    if (user) {
+      console.log("signout");
+      auth.signOut();
+      login(null);
+    }
+  };
   return (
     <nav className="header">
+      {console.log("Header Render")}
+
       <Link to="/">
         <img
           alt=""
@@ -22,10 +31,14 @@ const Header = () => {
         <SearchIcon className="header__searchicon"></SearchIcon>
       </div>
       <div className="header__nav">
-        <Link to="/login" className="header__link">
-          <div className="header__option">
-            <span className="header__optionLineOne">Hello Nayan</span>
-            <span className="header__optionLineTwo">Sign In</span>
+        <Link to={!user && "/login"} className="header__link">
+          <div onClick={handleAuthenticaton} className="header__option">
+            <span className="header__optionLineOne">
+              Hello {!user ? "Guest" : user.email}
+            </span>
+            <span className="header__optionLineTwo">
+              {user ? "Sign Out" : "Sign In"}
+            </span>
           </div>
         </Link>
         <Link to="/" className="header__link">

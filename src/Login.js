@@ -1,19 +1,22 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./Login.css";
 import { Link, useHistory } from "react-router-dom";
 import { auth } from "./Firebase";
-
+import { Basket } from "./StateProvider";
 function Login() {
   const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { user, login } = useContext(Basket);
 
-  const login = (event) => {
+  const setlogin = (event) => {
     event.preventDefault(); //Stop the refresh!
     //login logic
     auth
       .signInWithEmailAndPassword(email, password)
       .then((auth) => {
+        console.log(auth);
+        login(auth.user);
         history.push("/");
       })
       .catch((e) => alert(e.message));
@@ -26,6 +29,8 @@ function Login() {
     auth
       .createUserWithEmailAndPassword(email, password)
       .then((auth) => {
+        login(auth.user);
+
         //created a user and logged in redirect to homepage...
         history.push("/");
       })
@@ -56,7 +61,11 @@ function Login() {
             onChange={(event) => setPassword(event.target.value)}
             type="password"
           />
-          <button onClick={login} type="submit" className="login__signInButton">
+          <button
+            onClick={setlogin}
+            type="submit"
+            className="login__signInButton"
+          >
             Login
           </button>
         </form>
