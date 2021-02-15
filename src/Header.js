@@ -1,5 +1,5 @@
 import "./Header.css";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import SearchIcon from "@material-ui/icons/Search";
 import ShoppingBasketIcon from "@material-ui/icons/ShoppingBasket";
@@ -12,9 +12,10 @@ const Header = () => {
     if (user) {
       console.log("signout");
       auth.signOut();
-      // login(null);
+      //login(null);
     }
   };
+
   return (
     <nav className="header">
       {console.log("Header Render")}

@@ -11,7 +11,6 @@ import { Basket } from "./StateProvider";
 
 export default function App() {
   const { user, login } = useContext(Basket);
-
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       console.log("THE USER IS >>> ", authUser);
@@ -27,23 +26,24 @@ export default function App() {
     return () => {
       unsubscribe();
     };
-  });
+  }, []);
   return (
-    <StateProvider>
-      <Switch>
-        <Route path="/checkout">
-          <Header />
-          <Checkout />
-        </Route>
-        <Route path="/login">
-          <Header />
-          <Login />
-        </Route>
-        <Route path="/">
-          <Header />
-          <Home />
-        </Route>
-      </Switch>
-    </StateProvider>
+    <Switch>
+      {console.log("App.js Render Method")}
+
+      <Route path="/checkout">
+        <Header />
+        <Checkout />
+      </Route>
+      <Route path="/login">
+        <Header />
+        <Login />
+      </Route>
+      <Route path="/">
+        {user?.email}
+        <Header />
+        <Home />
+      </Route>
+    </Switch>
   );
 }
