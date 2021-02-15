@@ -12,7 +12,7 @@ const Header = () => {
     if (user) {
       console.log("signout");
       auth.signOut();
-      login(null);
+      // login(null);
     }
   };
   return (

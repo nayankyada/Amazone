@@ -12,22 +12,22 @@ import { Basket } from "./StateProvider";
 export default function App() {
   const { user, login } = useContext(Basket);
 
-  // useEffect(() => {
-  //   const unsubscribe = auth.onAuthStateChanged((authUser) => {
-  //     console.log("THE USER IS >>> ", authUser);
-  //     if (authUser) {
-  //       console.log("App.js useEffect If");
-  //       login(authUser);
-  //     } else {
-  //       console.log(user);
-  //       console.log(authUser);
-  //       login(null);
-  //     }
-  //   });
-  //   return () => {
-  //     unsubscribe();
-  //   };
-  // }, []);
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((authUser) => {
+      console.log("THE USER IS >>> ", authUser);
+      if (authUser) {
+        console.log("App.js useEffect If");
+        login(authUser);
+      } else {
+        console.log(user);
+        console.log(authUser);
+        login(null);
+      }
+    });
+    return () => {
+      unsubscribe();
+    };
+  });
   return (
     <StateProvider>
       <Switch>
